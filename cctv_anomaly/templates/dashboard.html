@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard CCTV</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="dashboard">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <button class="menu-btn">☰</button>
+                <span class="user-info">👤 User</span>
+            </div>
+            <ul class="menu">
+                <li><a href="#" onclick="showPopup('history')">History Alerts</a></li>
+                <li><a href="#" onclick="showPopup('storage')">File Storage</a></li>
+                <li><a href="#" onclick="showPopup('manage')">Manage CCTV</a></li>
+            </ul>
+            <button class="logout-btn">Logout</button>
+        </div>
+
+        <div class="main-content">
+            <div class="cctv-container">
+                <div class="cctv-box">
+                    <img src="{{ url_for('video_feed_1') }}" alt="CCTV 1">
+                    <p>CCTV 1</p>
+                </div>
+                <div class="cctv-box">
+                    <img src="{{ url_for('video_feed_2') }}" alt="CCTV 2">
+                    <p>CCTV 2</p>
+                </div>
+                <div class="cctv-box">
+                    <img src="{{ url_for('video_feed_3') }}" alt="CCTV 3">
+                    <p>CCTV 3</p>
+                </div>
+                <div class="cctv-box">
+                    <img src="{{ url_for('video_feed_4') }}" alt="CCTV 4">
+                    <p>CCTV 4</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="popup-container" id="popup-container">
+            <div class="popup" id="popup">
+                <div class="popup-header">
+                    <h3 id="popup-title"></h3>
+                    <button class="close-btn" onclick="closePopup()">×</button>
+                </div>
+                <div class="popup-content" id="popup-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const sidebar = document.querySelector(".sidebar");
+            const menuBtn = document.querySelector(".menu-btn");
+        
+            menuBtn.addEventListener("click", function() {
+                sidebar.classList.toggle("active");
+            });
+        });
+
+        function showPopup(type) {
+            const popup = document.getElementById("popup");
+            const popupTitle = document.getElementById("popup-title");
+            const popupContent = document.getElementById("popup-content");
+            let url;
+
+            switch(type) {
+                case 'history':
+                    url = '/history';
+                    popupTitle.textContent = 'History Alerts';
+                    break;
+                case 'storage':
+                    url = '/storage';
+                    popupTitle.textContent = 'File Storage';
+                    break;
+                case 'manage':
+                    url = '/CCTVmanage';
+                    popupTitle.textContent = 'Manage CCTV';
+                    break;
+            }
+
+            fetch(url)
+                .then(response => response.text())
+                .then(html => {
+                    popupContent.innerHTML = html;
+                    popup.style.display = 'block';
+                })
+                .catch(error => console.error('Error loading popup:', error));
+        }
+
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+            document.getElementById("popup-content").innerHTML = "";
+        }
+    </script>    
+</body>
+</html>

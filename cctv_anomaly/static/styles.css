@@ -1,0 +1,375 @@
+/* Reset dan Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Login Page Styles (Completely unchanged as per request) */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-image: url("{{ url_for('static', filename='background.jpg') }}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.login-container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    width: 80px;
+    margin-bottom: 20px;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.submit-btn {
+    background-color: #D42326;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.alert {
+    color: red;
+    margin-bottom: 10px;
+}
+
+/* Dashboard Page Styles */
+body.dashboard {
+    background-color: #f5f6fa;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.dashboard {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 250px;
+    background: linear-gradient(180deg, #D42326 0%, #A61C1F 100%); /* Gradient merah BRIN */
+    color: white;
+    transition: width 0.3s ease;
+    position: relative;
+    z-index: 1;
+    height: 100vh;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.menu-btn {
+    font-size: 20px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    margin-right: 10px;
+    color: white;
+    transition: transform 0.3s ease;
+}
+
+.menu-btn:hover {
+    transform: rotate(90deg);
+}
+
+.user-info {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.menu {
+    list-style-type: none;
+    padding: 10px;
+    flex-grow: 1;
+}
+
+.menu li {
+    padding: 10px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    transition: background 0.3s ease;
+}
+
+.menu li:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.menu a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+/* Ikon dan Panah pada Menu */
+.menu li:nth-child(1) a::before {
+    content: "📜";
+    margin-right: 10px;
+}
+
+.menu li:nth-child(2) a::before {
+    content: "💾";
+    margin-right: 10px;
+}
+
+.menu li:nth-child(3) a::before {
+    content: "📹";
+    margin-right: 10px;
+}
+
+.menu a::after {
+    content: "➤";
+    margin-left: auto;
+    font-size: 12px;
+}
+
+.logout-btn {
+    margin-top: auto;
+    padding: 10px 20px;
+    border: none;
+    background: none;
+    text-align: left;
+    font-size: 14px;
+    color: white;
+    cursor: pointer;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    transition: background 0.3s ease;
+}
+
+.logout-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.logout-btn::before {
+    content: "⟵";
+    margin-right: 8px;
+}
+
+/* Sidebar Collapsed Mode */
+.sidebar.active {
+    width: 60px;
+    text-align: center;
+}
+
+.sidebar.active .menu a,
+.sidebar.active .logout-btn,
+.sidebar.active .user-info {
+    font-size: 0; /* Sembunyikan teks */
+}
+
+.sidebar.active .menu a::before,
+.sidebar.active .logout-btn::before {
+    font-size: 20px;
+    margin-right: 0;
+    display: block;
+}
+
+.sidebar.active .menu li,
+.sidebar.active .logout-btn {
+    justify-content: center;
+    padding: 10px;
+}
+
+.sidebar.active .menu a::after {
+    display: none; /* Sembunyikan panah saat collapsed */
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    margin-left: 250px;
+    padding: 20px;
+    position: relative;
+    transition: margin-left 0.3s ease;
+    background-color: white;
+}
+
+.sidebar.active + .main-content {
+    margin-left: 60px;
+}
+
+/* CCTV Container */
+.cctv-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 20px;
+    height: 100%;
+}
+
+.cctv-box {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.cctv-box:hover {
+    transform: translateY(-5px);
+}
+
+.cctv-box img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+}
+
+.cctv-box p {
+    padding: 2px;
+    margin: 0;
+    background: #D42326;
+    font-weight: 500;
+}
+
+/* Popup Styles */
+.popup-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 0;
+    z-index: 2;
+    transition: width 0.3s;
+}
+
+.popup {
+    display: none;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 400px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.popup-header {
+    padding: 10px;
+    background: #3498db;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.popup-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 5px;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.close-btn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+    color: #000;
+}
+
+.ip-form input {
+    width: 100%;
+    margin: 10px 0;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.submit-btn.popup-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.3s ease;
+}
+
+.submit-btn.popup-btn:hover {
+    background-color: #45a049;
+}
+
+/* Responsivitas */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+
+    .sidebar.active {
+        width: 60px;
+    }
+
+    .main-content {
+        margin-left: 200px;
+        padding: 15px;
+    }
+
+    .sidebar.active + .main-content {
+        margin-left: 60px;
+    }
+
+    .cctv-container {
+        grid-template-columns: 1fr; /* Satu kolom di layar kecil */
+        gap: 10px;
+    }
+
+    .login-container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .popup-content {
+        width: 90%;
+        max-width: 350px;
+    }
+}

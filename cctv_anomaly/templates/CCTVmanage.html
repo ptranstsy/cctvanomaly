@@ -1,0 +1,77 @@
+<style>
+.popup {
+    display: none; /* Default tersembunyi */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+
+.popup-content {
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+</style>
+<!-- templates/CCTVmanage.html -->
+<div id="cctvPopup" class="popup">
+    <h2>Manage CCTV</h2>
+    <form id="ipForm">
+        <label for="cam_num">Camera Number:</label>
+        <select id="cam_num" name="cam_num">
+            <option value="1">CCTV 1</option>
+            <option value="2">CCTV 2</option>
+            <option value="3">CCTV 3</option>
+            <option value="4">CCTV 4</option>
+        </select>
+        <label for="ip">IP Address:</label>
+        <input type="text" id="ip" name="ip" placeholder="e.g., rtsp://user:pass@ip:port">
+        <button type="button" onclick="setCameraIP()">Set IP</button>
+        <button type="button" onclick="document.getElementById('cctvPopup').style.display='none'">Close</button>
+    </form>
+</div>
+
+<script>
+    function setCameraIP() {
+        const camNum = document.getElementById('cam_num').value;
+        const ip = document.getElementById('ip').value;
+        fetch('/set_ip', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ cam_num: parseInt(camNum), ip: ip })
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            document.getElementById('cctvPopup').style.display = 'none';
+        })
+        .catch(error => console.error('Error setting IP:', error));
+    }
+</script>
+
+<style>
+    .popup {
+        display: none;
+        position: fixed;
+        top: 20%;
+        left: 30%;
+        background: white;
+        padding: 20px;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        z-index: 1000;
+    }
+    .popup h2 { margin-top: 0; }
+    .popup label { display: block; margin: 10px 0 5px; }
+    .popup input, .popup select { width: 100%; padding: 5px; margin-bottom: 10px; }
+    .popup button { padding: 5px 10px; margin-right: 10px; }
+</style>
